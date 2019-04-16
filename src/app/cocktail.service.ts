@@ -1,20 +1,35 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CocktailService {
-  Cocktail = [
-    { name: 'cocktail1', price: 8, img: "https://img.freepik.com/free-photo/lemon-cocktail-with-plastic-straw-yellow-background_23-2148102384.jpg?size=626&ext=jpg" },
-    { name: 'cocktail2', price: 10, img: "https://image.freepik.com/free-photo/blue-cocktail-splashing-dark-background_72967-8.jpg" },
-    { name: 'cocktail3', price: 7, img: "https://image.freepik.com/free-photo/close-up-view-splash-water-with-falling-cherry_60569-94.jpg" },
-    { name: 'cocktail4', price: 18, img: "https://image.freepik.com/free-photo/blood-orange-gin-tonic-cocktail-served-with-slices-orange-glass_8353-6099.jpg" },
-  ];
-  constructor() { }
 
-  public getCocktails() {
-    return this.Cocktail;
+  constructor(public CocktailService:HttpClient) { }
+
+  public getCocktails():Observable<any[]>{
+    return this.CocktailService.get("assets/cocktails.json").pipe(
+      map(
+        (param_data:any)=> {
+          let current=null;
+          let results = [];
+
+          for (let i:number=0; i<param_data.length; i++){
+            current=param_data[i];
+
+            if(current != undefined){
+              results.push(current);
+
+            }else{
+              console.log("Pas de bol");
+            }
+          }
+          return results;
+        }
+      )
+    )
+    } 
   }
-
-
-}

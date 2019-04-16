@@ -1,7 +1,7 @@
     <table>
 
-     <div *ngFor="let cocktail of cocktails;">
-      <tr *ngIf="cocktail.name" class="body">
+     <div *ngFor="let cocktail of cocktails">
+      <tr>
         <td>
           {{cocktail.name}}
         </td>
@@ -9,7 +9,7 @@
           {{cocktail.price}} €
         </td>
         <td>
-          <img alt="photo" src={{cocktail.img}}>
+          <img [src]="cocktail.img"/>
         </td>
       </tr>
     </div>
